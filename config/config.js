@@ -14,6 +14,6 @@ module.exports.user = {
 };
 
 module.exports.scheduleTime = {
-    minute: 58,
-    hour: 23
+    minute: 0,
+    hour: 7
 };
