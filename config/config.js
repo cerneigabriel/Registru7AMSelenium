@@ -1,4 +1,4 @@
-module.exports.user = {
+exports.user = {
     service_id: 865,
     // service_id: 859,
     service: "Programare urgentă. Examen practic [poligon] [cat. B] [cutia mecanică]",
@@ -13,7 +13,7 @@ module.exports.user = {
     repeat_email: "cerneigabriel@gmail.com"
 };
 
-module.exports.scheduleTime = {
+exports.scheduleTime = {
     minute: 0,
     hour: 7
 };

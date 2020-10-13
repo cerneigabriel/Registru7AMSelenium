@@ -90,14 +90,15 @@ exports.registerUser = async () => {
         }
     });
 
-    await driver.wait(until.elementLocated(fields.location_id), 5 * 1000).then(() => ( driver.findElement(fields.location_id_option).click() ));
     await driver.wait(until.elementLocated(fields.idnp), 5 * 1000).then(item => ( item.sendKeys(idnp) ));
     await driver.wait(until.elementLocated(fields.school_code), 5 * 1000).then(item => ( item.sendKeys(school_code) ));
 
-    await driver.sleep(1000);
-
-    const scheduleUserMeeting = schedule.scheduleJob(scheduleTime, function(){
+    const scheduleUserExam = schedule.scheduleJob(scheduleTime, async function(){
         console.log("Schedule");
+        await driver.wait(until.elementLocated(fields.location_id), 5 * 1000).then(() => ( driver.findElement(fields.location_id_option).click() ));
+
+        await driver.sleep(1000);
+
         checkFreeDays(driver, fields)
             .catch(() => {
                 driver.findElement(fields.datepicker_next).click();
