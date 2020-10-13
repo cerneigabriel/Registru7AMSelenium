@@ -1,5 +1,6 @@
 module.exports = {
     service_id: 865,
+    service_id: 859,
     service: "Programare urgentă. Examen practic [poligon] [cat. B] [cutia mecanică]",
     idnp: "2009048003008",
     school_code: "0327359",

@@ -11,7 +11,7 @@ const { chromedriverPATH } = require("chromedriver");
 setDefaultService(new ServiceBuilder(chromedriverPATH).build());
 
 
-const checkFreeDays = async (driver, fields) => await driver.wait(until.elementsLocated(fields.datepicker_free_days), 5 * 1000).then(item => {
+const checkFreeDays = async (driver, fields) => await driver.wait(until.elementsLocated(fields.datepicker_free_days), 2 * 1000).then(item => {
     for (const key in item) {
         if (item.hasOwnProperty(key)) {
             const element = item[key];
