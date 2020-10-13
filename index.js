@@ -1,4 +1,4 @@
 // Registration Credentials
-const { registerUser } = require("./dist/index");
+const { registerUser } = require("./src/index");
 
 registerUser();
