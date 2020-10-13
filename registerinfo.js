@@ -9,5 +9,5 @@ module.exports = {
     lastname: "Gabriel",
     phone: "078398000",
     email: "cerneigabriel@gmail.com",
-    repeat_email: this.email
+    repeat_email: "cerneigabriel@gmail.com",
 };

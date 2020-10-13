@@ -7,8 +7,31 @@ const { Builder, By, until } = require("selenium-webdriver");
 const { setDefaultService, ServiceBuilder } = require("selenium-webdriver/chrome");
 const { chromedriverPATH } = require("chromedriver");
 
-// Registration Credentials
-const {
+
+setDefaultService(new ServiceBuilder(chromedriverPATH).build());
+
+
+const checkFreeDays = async (driver, fields) => await driver.wait(until.elementsLocated(fields.datepicker_free_days), 5 * 1000).then(item => {
+    for (const key in item) {
+        if (item.hasOwnProperty(key)) {
+            const element = item[key];
+            element.click();
+            break;
+        }
+    }
+});
+
+const checkFreeHours = async (driver, fields) => await driver.wait(until.elementsLocated(fields.datepicker_free_hours), 5 * 1000).then(item => {
+    for (const key in item) {
+        if (item.hasOwnProperty(key)) {
+            const element = item[key];
+            element.click();
+            break;
+        }
+    }
+});
+
+const registerUser = async ({
     service_id,
     idnp,
     school_code,
@@ -18,30 +41,12 @@ const {
     phone,
     email,
     repeat_email
-} = require("./registerinfo");
-
-
-setDefaultService(new ServiceBuilder(chromedriverPATH).build());
-
-
-const checkFreeDays = async (driver, fields) => {
-    return await driver.wait(until.elementsLocated(fields.datepicker_free_days), 5 * 1000).then(item => {
-        for (const key in item) {
-            if (item.hasOwnProperty(key)) {
-                const element = item[key];
-                element.click();
-                break;
-            }
-        }
-    });
-}
-
-(async function registration() {
+}) => {
 
     // Init browser and open web page
     let driver = await new Builder().forBrowser("chrome").build();
     await driver.get("https://programari.registru.md/");
-
+    
     const available = "Disponibil";
 
     // Get Fields
@@ -70,7 +75,7 @@ const checkFreeDays = async (driver, fields) => {
     await driver.findElement(fields.lastname).sendKeys(lastname);
     await driver.findElement(fields.phone).sendKeys(phone);
     await driver.findElement(fields.email).sendKeys(email);
-    await driver.findElement(fields.repeat_email).sendKeys(email);
+    await driver.findElement(fields.repeat_email).sendKeys(repeat_email);
 
     // Accept policy terms
     await driver.wait(until.elementsLocated(fields.conditions), 5 * 1000).then(item => {
@@ -98,15 +103,11 @@ const checkFreeDays = async (driver, fields) => {
         }).catch(() => (console.log("Something went wrong")));
         
 
-    await driver.wait(until.elementsLocated(fields.datepicker_free_hours), 5 * 1000).then(item => {
-        for (const key in item) {
-            if (item.hasOwnProperty(key)) {
-                const element = item[key];
-                element.click();
-                break;
-            }
-        }
-    });
+    checkFreeHours(driver, fields);
+}
 
-    
-})();
+
+// Registration Credentials
+const registerinfo = require("./registerinfo");
+
+registerUser({ ...registerinfo });
