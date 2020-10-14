@@ -46,7 +46,6 @@ const checkFreeHours = async (driver, fields) => await driver.wait(until.element
 });
 
 exports.registerUser = async () => {
-
     // Init browser and open web page
     let driver = await new Builder().forBrowser("chrome").build();
     await driver.get("https://programari.registru.md/");
@@ -73,13 +72,13 @@ exports.registerUser = async () => {
     };
 
     // Set Fields
-    await driver.findElement(fields.service_id_option).click();
-
     await driver.findElement(fields.firstname).sendKeys(firstname);
     await driver.findElement(fields.lastname).sendKeys(lastname);
     await driver.findElement(fields.phone).sendKeys(phone);
     await driver.findElement(fields.email).sendKeys(email);
     await driver.findElement(fields.repeat_email).sendKeys(repeat_email);
+
+    await driver.wait(until.elementLocated(fields.service_id_option), 5 * 1000).then(item => ( item.click() ));
 
     // Accept policy terms
     await driver.wait(until.elementsLocated(fields.conditions), 5 * 1000).then(item => {
