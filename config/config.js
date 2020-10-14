@@ -14,6 +14,6 @@ exports.user = {
 };
 
 exports.scheduleTime = {
-    minute: 50,
-    hour: 23
+    minute: 0,
+    hour: 7
 };

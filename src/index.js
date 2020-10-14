@@ -78,10 +78,10 @@ exports.registerUser = async () => {
     await driver.findElement(fields.email).sendKeys(email);
     await driver.findElement(fields.repeat_email).sendKeys(repeat_email);
 
-    await driver.wait(until.elementLocated(fields.service_id_option), 5 * 1000).then(item => ( item.click() ));
+    await driver.wait(until.elementLocated(fields.service_id_option), 10 * 1000).then(item => ( item.click() ));
 
     // Accept policy terms
-    await driver.wait(until.elementsLocated(fields.conditions), 5 * 1000).then(item => {
+    await driver.wait(until.elementsLocated(fields.conditions), 10 * 1000).then(item => {
         for (const key in item) {
             if (item.hasOwnProperty(key)) {
                 item[key].click();
@@ -89,14 +89,14 @@ exports.registerUser = async () => {
         }
     });
 
-    await driver.wait(until.elementLocated(fields.idnp), 5 * 1000).then(item => ( item.sendKeys(idnp) ));
-    await driver.wait(until.elementLocated(fields.school_code), 5 * 1000).then(item => ( item.sendKeys(school_code) ));
+    await driver.wait(until.elementLocated(fields.idnp), 10 * 1000).then(item => ( item.sendKeys(idnp) ));
+    await driver.wait(until.elementLocated(fields.school_code), 10 * 1000).then(item => ( item.sendKeys(school_code) ));
 
     const scheduleUserExam = schedule.scheduleJob(scheduleTime, async function(){
         console.log("Schedule");
-        await driver.wait(until.elementLocated(fields.location_id), 5 * 1000).then(() => ( driver.findElement(fields.location_id_option).click() ));
+        await driver.wait(until.elementLocated(fields.location_id), 10 * 1000).then(() => ( driver.findElement(fields.location_id_option).click() ));
 
-        await driver.sleep(1000);
+        await driver.sleep(2000);
 
         checkFreeDays(driver, fields)
             .catch(() => {
